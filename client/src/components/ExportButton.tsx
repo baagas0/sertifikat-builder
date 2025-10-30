@@ -13,6 +13,7 @@ export function ExportButton() {
 
     setIsExporting(true);
     try {
+      alert('Exporting PDF. This may take a moment.');
       await exportToPDF(project.pages, project.name);
     } catch (error) {
       console.error('Export failed:', error);

@@ -23,17 +23,38 @@ export function CertificateCanvas() {
       className="flex-1 relative bg-gray-50 overflow-auto flex items-center justify-center p-8"
     >
       <div
-        className="relative bg-white shadow-lg"
+        className="relative shadow-lg"
         style={{
-          width: `${currentPage.width}px`,
-          height: `${currentPage.height}px`,
-          backgroundImage: currentPage.backgroundImage
-            ? `url(${currentPage.backgroundImage})`
-            : undefined,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          // width: `${currentPage.width}px`,
+          // height: `${currentPage.height}px`,
+          height: '794px',
+          width: '1123px',
+          // backgroundImage: currentPage.backgroundImage
+          //   ? `url(${currentPage.backgroundImage})`
+          //   : undefined,
+          // backgroundSize: 'cover',
+          // backgroundPosition: 'center',
         }}
       >
+        {currentPage.backgroundImage && (
+          <img
+            src={currentPage.backgroundImage}
+            alt="background"
+            style={{
+              position: 'absolute',
+              // inset: 0,
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover', // or 'contain' if you prefer
+              // supply a string like 'center', 'top left', '50% 20%' from your page data
+              objectPosition: 'center',
+              // zIndex: 10, // ensures image sits behind draggable elements
+              pointerEvents: 'none', // allow clicks to pass through to canvas/elements
+            }}
+          />
+        )}
         {currentPage.elements.map((element) => (
           <DraggableElement
             key={element.id}

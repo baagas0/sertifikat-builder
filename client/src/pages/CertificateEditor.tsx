@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useCertificateStore } from '@/store/certificateStore';
 import { useAutosave } from '@/hooks/useAutosave';
-// import { Toolbar } from '@/components/Toolbar';
+import { Toolbar } from '@/components/Toolbar';
 import { CertificateCanvas } from '@/components/CertificateCanvas';
 import { ElementProperties } from '@/components/ElementProperties';
 import { PageManager } from '@/components/PageManager';
@@ -9,6 +9,7 @@ import { BackgroundUpload } from '@/components/BackgroundUpload';
 import { ExportMenu } from '@/components/ExportMenu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+// import Toolbar from '@/components/Toolbar';
 
 export default function CertificateEditor() {
   const initializeProject = useCertificateStore((state) => state.initializeProject);
@@ -57,7 +58,7 @@ export default function CertificateEditor() {
       </div>
 
       {/* Toolbar */}
-      {/* <Toolbar /> */}
+      <Toolbar />
 
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
