@@ -20,8 +20,10 @@ export default function CertificateEditor() {
 
   // Initialize project on mount
   useEffect(() => {
-    loadFromLocalStorage();
-    if (!project) {
+    const stored = localStorage.getItem('certificate-project');
+    if (stored) {
+      loadFromLocalStorage();
+    } else {
       initializeProject();
     }
   }, []);

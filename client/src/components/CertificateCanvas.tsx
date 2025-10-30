@@ -52,10 +52,13 @@ export function CertificateCanvas() {
       >
         <div
           ref={innerRef} // Tambahkan ref ke inner div
-          className="relative shadow-lg"
+          className="relative shadow-lg bg-white"
           style={{
+            // height: `${currentPage.height}px`,
+            // width: `${currentPage.width}px`,
             height: '794px',
             width: '1123px',
+
           }}
         >
           {currentPage.backgroundImage && (

@@ -266,10 +266,20 @@ export const useCertificateStore = create<CertificateStore>((set, get) => ({
   },
 
   loadFromLocalStorage: () => {
+    // Load project from localStorage
+    console.log('===> certificateStore.ts:271 ~ LOAD PROJECT');
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
         const project = JSON.parse(stored);
+        // Restore Date objects
+        if (project.createdAt) {
+          project.createdAt = new Date(project.createdAt);
+        }
+        if (project.updatedAt) {
+          project.updatedAt = new Date(project.updatedAt);
+        }
+        console.log('===> certificateStore.ts:276 ~ project', project);
         set({ project });
       } catch (error) {
         console.error('Failed to load project from localStorage:', error);
