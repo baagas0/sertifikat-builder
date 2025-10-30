@@ -16,7 +16,7 @@ interface CertificateStore {
   getCurrentPage: () => CertificatePage | null;
   
   // Element actions
-  addElement: (type: 'text' | 'signature-box' | 'signature-name' | 'custom-text', content?: string) => void;
+  addElement: (type: 'text' | 'signature-box' | 'signature-name' | 'custom-text', content?: string, position?: { x: number; y: number }, size?: { width: number; height: number }) => void;
   updateElement: (elementId: string, updates: Partial<CertificateElement>) => void;
   deleteElement: (elementId: string) => void;
   selectElement: (elementId: string | null) => void;
@@ -126,18 +126,27 @@ export const useCertificateStore = create<CertificateStore>((set, get) => ({
     return state.project.pages.find((p) => p.id === state.project!.currentPageId) || null;
   },
 
-  addElement: (type, content = '') => {
+  addElement: (type, content = '', position, size) => {
     set((state) => {
       if (!state.project) return state;
       const currentPage = state.project.pages.find((p) => p.id === state.project!.currentPageId);
       if (!currentPage) return state;
 
+      const elementDefaults = {
+        'text': { content: 'Jabatan', width: 200, height: 40 },
+        'signature-box': { content: '', width: 200, height: 80 },
+        'signature-name': { content: 'Nama Penandatangan', width: 200, height: 40 },
+        'custom-text': { content: 'Custom Text', width: 200, height: 40 }
+      };
+
+      const defaults = elementDefaults[type];
+
       const newElement: CertificateElement = {
         id: `element-${Date.now()}`,
         type,
-        position: { x: 50, y: 50 },
-        size: { width: 200, height: 40 },
-        content: content || (type === 'text' ? 'Jabatan' : type === 'signature-name' ? 'Nama Penandatangan' : type === 'signature-box' ? '' : 'Custom Text'),
+        position: position || { x: 50, y: 50 },
+        size: size || { width: defaults.width, height: defaults.height },
+        content: content || defaults.content,
         fontSize: 16,
         textAlign: 'center',
         color: '#000000',
