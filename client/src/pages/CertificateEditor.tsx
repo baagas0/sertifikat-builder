@@ -52,7 +52,7 @@ export default function CertificateEditor() {
           </div>
           <div className="flex gap-2">
             {currentPage && <BackgroundUpload pageId={currentPage.id} />}
-            <ExportMenu />
+            {/* <ExportMenu /> */}
           </div>
         </div>
       </div>

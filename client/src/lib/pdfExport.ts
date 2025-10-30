@@ -1,4 +1,4 @@
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas-pro';
 import jsPDF from 'jspdf';
 import { CertificatePage } from '@/types/certificate';
 
@@ -25,11 +25,19 @@ export async function exportToPDF(
       container.style.backgroundColor = '#ffffff';
       container.style.fontFamily = 'system-ui, -apple-system, sans-serif';
       
-      if (page.backgroundImage) {
-        container.style.backgroundImage = `url(${page.backgroundImage})`;
-        container.style.backgroundSize = 'cover';
-        container.style.backgroundPosition = 'center';
-      }
+      // if (page.backgroundImage) {
+      //   const bgImg = document.createElement('img');
+      //   bgImg.src = page.backgroundImage;
+      //   bgImg.style.position = 'absolute';
+      //   bgImg.style.top = '0';
+      //   bgImg.style.left = '0';
+      //   bgImg.style.width = '100%';
+      //   bgImg.style.height = '100%';
+      //   bgImg.style.objectFit = 'cover';
+      //   bgImg.style.objectPosition = 'center';
+      //   bgImg.style.pointerEvents = 'none';
+      //   container.appendChild(bgImg);
+      // }
 
       // Add elements to the container
       page.elements.forEach((element) => {
@@ -39,7 +47,7 @@ export async function exportToPDF(
         elementDiv.style.top = `${element.position.y}px`;
         elementDiv.style.width = `${element.size.width}px`;
         elementDiv.style.height = `${element.size.height}px`;
-        elementDiv.style.zIndex = `${element.zIndex}`;
+        elementDiv.style.zIndex = `${10}`;
         elementDiv.style.overflow = 'hidden';
 
         if (element.type === 'signature-box') {
@@ -60,9 +68,17 @@ export async function exportToPDF(
           elementDiv.style.whiteSpace = 'pre-wrap';
           elementDiv.textContent = element.content;
         }
-
+        console.log('element', element);
+        console.log('elementDiv', elementDiv);
         container.appendChild(elementDiv);
       });
+
+      if (page.backgroundImage) {
+  container.style.backgroundImage = `url(${page.backgroundImage})`;
+  container.style.backgroundSize = 'cover';
+  container.style.backgroundPosition = 'center';
+  container.style.backgroundRepeat = 'no-repeat';
+}
 
       document.body.appendChild(container);
 
